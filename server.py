@@ -3,8 +3,10 @@ from youtube_transcript_api.proxies import WebshareProxyConfig
 from flask import Flask
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/url/<video_id>', methods=['GET'])
 def home(video_id):
