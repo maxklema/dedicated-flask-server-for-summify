@@ -1,11 +1,19 @@
 from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import WebshareProxyConfig
 from flask import Flask
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
 @app.route('/url/<video_id>', methods=['GET'])
 def home(video_id):
-    ytt_api = YouTubeTranscriptApi()
+    ytt_api = YouTubeTranscriptApi(
+    proxy_config=WebshareProxyConfig(
+        proxy_username=os.getenv("USERNAME"),
+        proxy_password=os.getenv("PASSWORD"),
+    )
+)
     fetched_transcript = ytt_api.fetch(video_id)
     text_transcript = ""
     for snippet in fetched_transcript:
