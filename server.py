@@ -15,8 +15,8 @@ def home(video_id):
         proxy_username=os.getenv("USERNAME"),
         proxy_password=os.getenv("PASSWORD"),
     )
-)
-    fetched_transcript = ytt_api.fetch(video_id)
+    )
+    fetched_transcript = ytt_api.fetch(video_id, languages=['en', 'en-US', 'es', 'zh-Hans', 'hi', 'fr'])
     text_transcript = ""
     for snippet in fetched_transcript:
         text_transcript += snippet.text
