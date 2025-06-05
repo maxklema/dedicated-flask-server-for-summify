@@ -1,6 +1,6 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
-from flask import Flask, request
+from flask import Flask
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS
@@ -8,9 +8,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/', methods=['GET'])
-def home():
-    video_id=request.args.get('video_id')
+@app.route('/<video_id>', methods=['GET'])
+def home(video_id):
+    print(video_id)
     ytt_api = YouTubeTranscriptApi(
     proxy_config=WebshareProxyConfig(
         proxy_username=os.getenv("USERNAME"),
