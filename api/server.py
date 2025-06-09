@@ -1,26 +1,31 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
 from flask import Flask
-from dotenv import load_dotenv
-import os
+# from dotenv import load_dotenv
+# import os
 from flask_cors import CORS
+from requests import session
+import requests
+import json
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/<video_id>', methods=['GET'])
 def home(video_id):
-    print(video_id)
-    ytt_api = YouTubeTranscriptApi(
-    proxy_config=WebshareProxyConfig(
-        proxy_username=os.getenv("USERNAME"),
-        proxy_password=os.getenv("PASSWORD"),
-    )
-    )
-    fetched_transcript = ytt_api.fetch(video_id, languages=['en', 'en-US', 'es', 'zh-Hans', 'hi', 'fr'])
-    text_transcript = ""
-    for snippet in fetched_transcript:
-        text_transcript += snippet.text
 
-    return text_transcript
+    url = "https://youtube-transcriptor.p.rapidapi.com/transcript?video_id=" + video_id + "&lang=en" # Replace with your target URL
+
+    headers = {
+        'x-rapidapi-host': 'youtube-transcriptor.p.rapidapi.com',
+        'x-rapidapi-key': '89157bf949msh1ef8a2963e6a113p1b9cc0jsn5db75d561df2'
+    }
+
+    session = requests.Session()
+    response = session.get(url, headers=headers)
+
+    responseRaw = (response.text)[1:(len(response.text)-1)] # remove enclosed brackets
+    responseJSON = json.loads(responseRaw)
+
+    return responseJSON["transcriptionAsText"]
 
