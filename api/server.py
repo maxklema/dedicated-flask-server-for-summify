@@ -18,7 +18,7 @@ def home(video_id):
 
     headers = {
         'x-rapidapi-host': 'youtube-transcriptor.p.rapidapi.com',
-        'x-rapidapi-key': '89157bf949msh1ef8a2963e6a113p1b9cc0jsn5db75d561df2'
+        'x-rapidapi-key': ''
     }
 
     session = requests.Session()
