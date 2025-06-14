@@ -2,7 +2,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
 from flask import Flask
 # from dotenv import load_dotenv
-# import os
+import os
 from flask_cors import CORS
 from requests import session
 import requests
@@ -15,10 +15,11 @@ CORS(app)
 def home(video_id):
 
     url = "https://youtube-transcriptor.p.rapidapi.com/transcript?video_id=" + video_id + "&lang=en" # Replace with your target URL
-
+    api_key = os.environ.get("API_KEY")
+    
     headers = {
         'x-rapidapi-host': 'youtube-transcriptor.p.rapidapi.com',
-        'x-rapidapi-key': ''
+        'x-rapidapi-key': api_key
     }
 
     session = requests.Session()
