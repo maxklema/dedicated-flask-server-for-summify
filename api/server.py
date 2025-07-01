@@ -14,7 +14,7 @@ CORS(app)
 @app.route('/<video_id>', methods=['GET'])
 def home(video_id):
 
-    url = "https://youtube-transcriptor.p.rapidapi.com/transcript?video_id=" + video_id + "&lang=en" # Replace with your target URL
+    url = "https://youtube-transcriptor.p.rapidapi.com/transcript?video_id=" + video_id # Replace with your target URL
     api_key = os.environ.get("API_KEY")
     
     headers = {
